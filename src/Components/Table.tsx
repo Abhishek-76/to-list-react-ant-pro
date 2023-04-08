@@ -2,8 +2,7 @@ import React, { useState, useRef } from "react";
 import { Tag } from "antd";
 import type { ProColumns, ActionType } from "@ant-design/pro-table";
 import { EditableProTable } from "@ant-design/pro-table";
-import { ProFormRadio } from "@ant-design/pro-components";
-import { title } from "process";
+import moment from "moment";
 
 type ToDoEntry = {
   id: React.Key;
@@ -11,7 +10,7 @@ type ToDoEntry = {
   title?: string;
   readonly?: string;
   description?: string;
-  status: "complete" | "incomplete";
+  status?: "complete" | "incomplete";
   due_date?: string;
   tags?: string[];
 };
@@ -45,9 +44,11 @@ export default () => {
 
   const columns: ProColumns<ToDoEntry>[] = [
     {
-      title: "Timestamped",
-      dataIndex: "created_at",
-      valueType: "date",
+      title: "Timestamp created",
+      dataIndex: "created",
+      width: 150,
+      renderText: (text) => moment(text).format("YYYY-MM-DD HH:mm:ss"),
+      editable: false,
     },
     {
       title: "Title",
@@ -59,12 +60,6 @@ export default () => {
           { max: 100, message: "Title cannot be longer than 100 characters" },
         ],
       },
-    },
-    {
-      title: "read Only",
-      dataIndex: "readonly",
-      readonly: true,
-      width: "15%",
     },
     {
       title: "Description",
@@ -81,9 +76,11 @@ export default () => {
       },
     },
     {
-      title: "Due_date",
+      title: "Due Date",
       dataIndex: "due_date",
-      valueType: "date",
+      width: 150,
+      hideInSearch: true,
+      renderText: (text) => (text ? moment(text).format("YYYY-MM-DD") : "-"),
     },
     {
       title: "Tag",
@@ -155,6 +152,7 @@ export default () => {
             ? {
                 position: position as "top",
                 record: () => ({ id: (Math.random() * 1000000).toFixed(0) }),
+                creatorButtonText: "Add Item",
               }
             : false
         }
