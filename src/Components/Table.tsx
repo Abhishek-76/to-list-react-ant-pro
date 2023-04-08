@@ -166,7 +166,7 @@ export default () => {
           success: true,
         })}
         value={dataSource}
-        onClick={setDataSource}
+        onChange={setDataSource}
         editable={{
           type: "multiple",
           editableKeys,
