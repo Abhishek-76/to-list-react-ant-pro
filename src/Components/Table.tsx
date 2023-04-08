@@ -164,16 +164,17 @@ export default () => {
           success: true,
         })}
         value={dataSource}
-        onChange={setDataSource}
-        editable={{
-          type: "multiple",
-          editableKeys,
-          onSave: async (rowKey, data, row) => {
-            console.log(rowKey, data, row);
-            await waitTime(2000);
-          },
-          onChange: setEditableRowKeys,
-        }}
+        // onChange={setDataSource}
+        // editable={{
+        //   type: "multiple",
+        //   editableKeys,
+        //   onSave: async (rowKey, data, row) => {
+        //     console.log(rowKey, data, row);
+        //     await waitTime(2000);
+        //   },
+        //   onChange: (keys: readonly (string | number)[]) => setEditableRowKeys(keys),
+
+        // }}
       />
     </>
   );
